@@ -2,7 +2,12 @@ package org.example;
 
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 public class Alien {
@@ -12,8 +17,17 @@ public class Alien {
     private int aid;
 
     private AlienName aname;
-    private String color;
+//    private String color;
+    @OneToMany(mappedBy = "alien",fetch = FetchType.EAGER)
+    private Collection<Laptop> laps  = new ArrayList<>();
 
+    public Collection<Laptop> getLaps() {
+        return laps;
+    }
+
+    public void setLaps(Collection<Laptop> laps) {
+        this.laps = laps;
+    }
 
     public AlienName getAname() {
         return aname;
@@ -23,13 +37,7 @@ public class Alien {
         this.aname = aname;
     }
 
-    public String getColor() {
-        return color;
-    }
 
-    public void setColor(String color) {
-        this.color = color;
-    }
 
     public int getAid() {
         return aid;
@@ -43,8 +51,8 @@ public class Alien {
     public String toString() {
         return "Alien{" +
                 "aid=" + aid +
-                ", aname='" + aname + '\'' +
-                ", color='" + color + '\'' +
+                ", aname=" + aname +
+                ", laps=" + laps +
                 '}';
     }
 }
